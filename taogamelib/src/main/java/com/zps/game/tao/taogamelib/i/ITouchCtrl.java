@@ -1,5 +1,6 @@
-package com.zps.game.tao.taogamelib.snake;
+package com.zps.game.tao.taogamelib.i;
 
+import android.graphics.Point;
 import android.view.View;
 
 /**
@@ -16,5 +17,7 @@ public interface ITouchCtrl extends View.OnTouchListener{
     void onSweepRight();
     void onSweepUp();
     void onSweepDown();
+    void onClick(Point point);
+    void onLongClick(Point point);
     void onDoubleClick();
 }

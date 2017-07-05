@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.zps.game.tao.fragmentation.base.MySupportFragment;
 import com.zps.game.tao.taogamelib.utils.HissViewAction;
+import com.zps.game.tao.tgamecollection.gamefragments.RussiaCubeFragment;
 import com.zps.game.tao.tgamecollection.gamefragments.SnakeFragment;
 
 
@@ -18,6 +19,7 @@ import com.zps.game.tao.tgamecollection.gamefragments.SnakeFragment;
  */
 public class HomeFragment extends MySupportFragment {
     Button btnSnake;
+    Button btnRussiaCube;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -33,12 +35,19 @@ public class HomeFragment extends MySupportFragment {
     }
 
     private void initViews(View view) {
-        btnSnake = view.findViewById(R.id.snake);
+        btnSnake = (Button) view.findViewById(R.id.snake);
         btnSnake.setOnClickListener(new HissViewAction().new OnClickListener() {
-
             @Override
             public void action(View v) {
                 start(new SnakeFragment());
+            }
+        });
+
+        btnRussiaCube = (Button) view.findViewById(R.id.cube);
+        btnRussiaCube.setOnClickListener(new HissViewAction().new OnClickListener() {
+            @Override
+            public void action(View v) {
+                start(new RussiaCubeFragment());
             }
         });
     }

@@ -3,6 +3,8 @@ package com.zps.game.tao.taogamelib.snake;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.zps.game.tao.taogamelib.i.ITouchCtrl;
+
 /**
  * Created by tao on 2017/7/3.
  */

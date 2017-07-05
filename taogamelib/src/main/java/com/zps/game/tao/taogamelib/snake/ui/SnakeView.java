@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -16,7 +17,7 @@ import com.zps.game.tao.taogamelib.i.IGameView;
 import com.zps.game.tao.taogamelib.snake.AbstractTouchCtrl;
 import com.zps.game.tao.taogamelib.snake.ISnakeData;
 import com.zps.game.tao.taogamelib.snake.ISnakeLogic;
-import com.zps.game.tao.taogamelib.snake.ITouchCtrl;
+import com.zps.game.tao.taogamelib.i.ITouchCtrl;
 import com.zps.game.tao.taogamelib.snake.bean.ApplePoint;
 import com.zps.game.tao.taogamelib.snake.bean.CenterPoint;
 import com.zps.game.tao.taogamelib.snake.bean.SnakeBody;
@@ -72,6 +73,16 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
             if(currentDirection != StartDirection.Up){
                 currentDirection = StartDirection.Down;
             }
+        }
+
+        @Override
+        public void onClick(Point point) {
+
+        }
+
+        @Override
+        public void onLongClick(Point point) {
+
         }
 
         @Override
