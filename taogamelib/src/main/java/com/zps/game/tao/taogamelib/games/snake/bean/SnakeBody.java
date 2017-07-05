@@ -1,6 +1,6 @@
-package com.zps.game.tao.taogamelib.snake.bean;
+package com.zps.game.tao.taogamelib.games.snake.bean;
 
-import com.zps.game.tao.taogamelib.snake.ISnakeData;
+import com.zps.game.tao.taogamelib.games.snake.ISnakeData;
 
 /**
  * Created by tao on 2017/7/3.

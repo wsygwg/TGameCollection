@@ -1,4 +1,4 @@
-package com.zps.game.tao.taogamelib.snake;
+package com.zps.game.tao.taogamelib.games.snake;
 
 import android.view.MotionEvent;
 import android.view.View;

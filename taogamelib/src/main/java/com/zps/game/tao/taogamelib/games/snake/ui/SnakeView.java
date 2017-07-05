@@ -1,4 +1,4 @@
-package com.zps.game.tao.taogamelib.snake.ui;
+package com.zps.game.tao.taogamelib.games.snake.ui;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,14 +13,14 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
 
+import com.zps.game.tao.taogamelib.games.snake.AbstractTouchCtrl;
+import com.zps.game.tao.taogamelib.games.snake.ISnakeData;
+import com.zps.game.tao.taogamelib.games.snake.bean.CenterPoint;
+import com.zps.game.tao.taogamelib.games.snake.bean.SnakeBody;
 import com.zps.game.tao.taogamelib.i.IGameView;
-import com.zps.game.tao.taogamelib.snake.AbstractTouchCtrl;
-import com.zps.game.tao.taogamelib.snake.ISnakeData;
-import com.zps.game.tao.taogamelib.snake.ISnakeLogic;
+import com.zps.game.tao.taogamelib.games.snake.ISnakeLogic;
 import com.zps.game.tao.taogamelib.i.ITouchCtrl;
-import com.zps.game.tao.taogamelib.snake.bean.ApplePoint;
-import com.zps.game.tao.taogamelib.snake.bean.CenterPoint;
-import com.zps.game.tao.taogamelib.snake.bean.SnakeBody;
+import com.zps.game.tao.taogamelib.games.snake.bean.ApplePoint;
 import com.zps.game.tao.taogamelib.utils.GameRandom;
 import com.zps.game.tao.taogamelib.utils.ScreenInfo;
 

@@ -5,7 +5,7 @@
     tools:context="com.zps.game.tao.tgamecollection.gamefragments.SnakeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <com.zps.game.tao.taogamelib.russiacube.RussiaCubeView
+    <com.zps.game.tao.taogamelib.games.russiacube.RussiaCubeView
         android:id="@+id/russiacubeid"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,4 +1,4 @@
-package com.zps.game.tao.taogamelib.snake.bean;
+package com.zps.game.tao.taogamelib.games.snake.bean;
 
 /**
  * Created by tao on 2017/7/3.

@@ -6,7 +6,7 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <com.zps.game.tao.taogamelib.snake.ui.SnakeView
+    <com.zps.game.tao.taogamelib.games.snake.ui.SnakeView
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

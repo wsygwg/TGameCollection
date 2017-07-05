@@ -1,4 +1,4 @@
-package com.zps.game.tao.taogamelib.russiacube;
+package com.zps.game.tao.taogamelib.games.russiacube;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
