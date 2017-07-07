@@ -12,6 +12,7 @@ import com.zps.game.tao.fragmentation.base.MySupportFragment;
 import com.zps.game.tao.taogamelib.utils.HissViewAction;
 import com.zps.game.tao.tgamecollection.gamefragments.RussiaCubeFragment;
 import com.zps.game.tao.tgamecollection.gamefragments.SnakeFragment;
+import com.zps.game.tao.tgamecollection.gamefragments.SnakeFragment2;
 
 
 /**
@@ -19,6 +20,7 @@ import com.zps.game.tao.tgamecollection.gamefragments.SnakeFragment;
  */
 public class HomeFragment extends MySupportFragment {
     Button btnSnake;
+    Button btnSnake2;
     Button btnRussiaCube;
 
     public HomeFragment() {
@@ -40,6 +42,14 @@ public class HomeFragment extends MySupportFragment {
             @Override
             public void action(View v) {
                 start(new SnakeFragment());
+            }
+        });
+
+        btnSnake2 = (Button) view.findViewById(R.id.snake2);
+        btnSnake2.setOnClickListener(new HissViewAction().new OnClickListener() {
+            @Override
+            public void action(View v) {
+                start(new SnakeFragment2());
             }
         });
 

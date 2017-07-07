@@ -17,7 +17,9 @@ public interface ITouchCtrl extends View.OnTouchListener{
     void onSweepRight();
     void onSweepUp();
     void onSweepDown();
-    void onClick(Point point);
-    void onLongClick(Point point);
     void onDoubleClick();
+    SweepDirection getSweepDirection();
+    enum SweepDirection{
+        UNDEFINED,UP,DOWN,LEFT,RIGHT
+    }
 }

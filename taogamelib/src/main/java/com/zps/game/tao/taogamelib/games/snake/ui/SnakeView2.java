@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -14,13 +13,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.zps.game.tao.taogamelib.games.snake.AbstractTouchCtrl;
+import com.zps.game.tao.taogamelib.games.snake.GDetectorTouchCtrl;
 import com.zps.game.tao.taogamelib.games.snake.ISnakeData;
+import com.zps.game.tao.taogamelib.games.snake.ISnakeLogic;
+import com.zps.game.tao.taogamelib.games.snake.bean.ApplePoint;
 import com.zps.game.tao.taogamelib.games.snake.bean.CenterPoint;
 import com.zps.game.tao.taogamelib.games.snake.bean.SnakeBody;
 import com.zps.game.tao.taogamelib.i.IGameView;
-import com.zps.game.tao.taogamelib.games.snake.ISnakeLogic;
 import com.zps.game.tao.taogamelib.i.ITouchCtrl;
-import com.zps.game.tao.taogamelib.games.snake.bean.ApplePoint;
 import com.zps.game.tao.taogamelib.utils.GameRandom;
 import com.zps.game.tao.taogamelib.utils.ScreenInfo;
 
@@ -30,63 +30,19 @@ import java.util.ArrayList;
  * Created by tao on 2017/7/3.
  */
 
-public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeData {
+public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeData {
 
     private ScreenInfo screenInfo;
     private ArrayList<SnakeBody> bodyPoints = new ArrayList<>();
     private SnakeBody initBody = new SnakeBody(new CenterPoint(r, r, r));
-    private ISnakeData.StartDirection currentDirection = startDirection;
-    private ISnakeData.Status status = Status.Unsetup;
+    private StartDirection currentDirection = startDirection;
+    private Status status = Status.Unsetup;
     private ApplePoint ap;
     private Handler handler;
     private TextPaint paint;
     private long refreshDelayTime = DEFAULT_REFRESH_DELAY_TIME;
 
-    private ITouchCtrl touchCtrl = new AbstractTouchCtrl() {
-        @Override
-        public void onSweepLeft() {
-//            showToast("左");
-            if(currentDirection != StartDirection.Right){
-                currentDirection = StartDirection.Left;
-            }
-        }
-
-        @Override
-        public void onSweepRight() {
-//            showToast("右");
-            if(currentDirection != StartDirection.Left){
-                currentDirection = StartDirection.Right;
-            }
-        }
-
-        @Override
-        public void onSweepUp() {
-//            showToast("上");
-            if(currentDirection != StartDirection.Down){
-                currentDirection = StartDirection.Up;
-            }
-        }
-
-        @Override
-        public void onSweepDown() {
-//            showToast("下");
-            if(currentDirection != StartDirection.Up){
-                currentDirection = StartDirection.Down;
-            }
-        }
-
-        @Override
-        public void onDoubleClick() {
-            if (status == Status.Paused || status == Status.Unsetup) {
-                onGameStart();
-            } else if (status == Status.ING) {
-                onGamePause();
-            } else if (status == Status.End) {
-                onGameReset();
-                onGameStart();
-            }
-        }
-    };
+    private ITouchCtrl touchCtrl;
 
     private void showToast(String info) {
         try {
@@ -103,22 +59,63 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
         return touchCtrl;
     }
 
-    public SnakeView(Context context) {
+    public SnakeView2(Context context) {
         super(context);
         setupOnTouch();
     }
 
-    public SnakeView(Context context, @Nullable AttributeSet attrs) {
+    public SnakeView2(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         setupOnTouch();
     }
 
-    public SnakeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SnakeView2(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setupOnTouch();
     }
 
-    private void setupOnTouch(){
+    public void setupOnTouch(){
+         touchCtrl = new GDetectorTouchCtrl() {
+            @Override
+            public void onSweepLeft() {
+                if(currentDirection != StartDirection.Right){
+                    currentDirection = StartDirection.Left;
+                }
+            }
+
+            @Override
+            public void onSweepRight() {
+                if(currentDirection != StartDirection.Left){
+                    currentDirection = StartDirection.Right;
+                }
+            }
+
+            @Override
+            public void onSweepUp() {
+                if(currentDirection != StartDirection.Down){
+                    currentDirection = StartDirection.Up;
+                }
+            }
+
+            @Override
+            public void onSweepDown() {
+                if(currentDirection != StartDirection.Up){
+                    currentDirection = StartDirection.Down;
+                }
+            }
+
+            @Override
+            public void onDoubleClick() {
+                if (status == Status.Paused || status == Status.Unsetup) {
+                    onGameStart();
+                } else if (status == Status.ING) {
+                    onGamePause();
+                } else if (status == Status.End) {
+                    onGameReset();
+                    onGameStart();
+                }
+            }
+        };
         this.setOnTouchListener(touchCtrl);
     }
 

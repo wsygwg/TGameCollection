@@ -2,20 +2,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.zps.game.tao.tgamecollection.HomeFragment">
 
     <Button
         android:id="@+id/snake"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="snake" />
 
     <Button
-        android:id="@+id/cube"
-        android:layout_width="wrap_content"
+        android:id="@+id/snake2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:text="snake2" />
+
+    <Button
+        android:id="@+id/cube"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="russia cube" />
 
 </LinearLayout>
