@@ -9,6 +9,6 @@
     <com.zps.game.tao.taogamelib.games.snake.ui.SnakeView2
         android:id="@+id/snakeview2"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
