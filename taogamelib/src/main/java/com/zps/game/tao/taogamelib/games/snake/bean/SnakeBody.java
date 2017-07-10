@@ -1,6 +1,7 @@
 package com.zps.game.tao.taogamelib.games.snake.bean;
 
 import com.zps.game.tao.taogamelib.games.snake.ISnakeData;
+import com.zps.game.tao.taogamelib.ui.CenterPoint;
 
 /**
  * Created by tao on 2017/7/3.

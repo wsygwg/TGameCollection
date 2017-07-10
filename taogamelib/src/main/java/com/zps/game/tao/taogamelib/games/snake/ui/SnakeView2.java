@@ -9,17 +9,17 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.zps.game.tao.taogamelib.games.snake.AbstractTouchCtrl;
 import com.zps.game.tao.taogamelib.games.snake.GDetectorTouchCtrl;
 import com.zps.game.tao.taogamelib.games.snake.ISnakeData;
 import com.zps.game.tao.taogamelib.games.snake.ISnakeLogic;
 import com.zps.game.tao.taogamelib.games.snake.bean.ApplePoint;
-import com.zps.game.tao.taogamelib.games.snake.bean.CenterPoint;
+import com.zps.game.tao.taogamelib.ui.CenterPoint;
 import com.zps.game.tao.taogamelib.games.snake.bean.SnakeBody;
 import com.zps.game.tao.taogamelib.i.IGameView;
 import com.zps.game.tao.taogamelib.i.ITouchCtrl;
@@ -34,6 +34,7 @@ import java.util.ArrayList;
 
 public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeData {
 
+    private static final String TAG = SnakeView2.class.getSimpleName();
     private ScreenInfo screenInfo;
     private ArrayList<SnakeBody> bodyPoints = new ArrayList<>();
     private SnakeBody initBody = new SnakeBody(new CenterPoint(r, r, r));
@@ -76,32 +77,37 @@ public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeDa
         setupOnTouch();
     }
 
-    public void setupOnTouch(){
-         touchCtrl = new GDetectorTouchCtrl() {
+    public void setupOnTouch() {
+        touchCtrl = new GDetectorTouchCtrl() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return v.onTouchEvent(event);
+            }
+
             @Override
             public void onSweepLeft() {
-                if(currentDirection != StartDirection.Right){
+                if (currentDirection != StartDirection.Right) {
                     currentDirection = StartDirection.Left;
                 }
             }
 
             @Override
             public void onSweepRight() {
-                if(currentDirection != StartDirection.Left){
+                if (currentDirection != StartDirection.Left) {
                     currentDirection = StartDirection.Right;
                 }
             }
 
             @Override
             public void onSweepUp() {
-                if(currentDirection != StartDirection.Down){
+                if (currentDirection != StartDirection.Down) {
                     currentDirection = StartDirection.Up;
                 }
             }
 
             @Override
             public void onSweepDown() {
-                if(currentDirection != StartDirection.Up){
+                if (currentDirection != StartDirection.Up) {
                     currentDirection = StartDirection.Down;
                 }
             }
@@ -117,8 +123,73 @@ public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeDa
                     onGameStart();
                 }
             }
+
+            @Override
+            public SweepDirection getSweepDirection() {
+                return null;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                super.onLongPress(e);
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                Log.e(TAG, "distanceX = " + distanceX + " ; distanceY = " + distanceY);
+                if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > MIN_SWEEP_LENGTH) {
+                    if (distanceX > 0) {
+                        onSweepLeft();
+                    } else {
+                        onSweepRight();
+                    }
+                } else if (Math.abs(distanceX) < Math.abs(distanceY) && Math.abs(distanceY) > MIN_SWEEP_LENGTH) {
+                    if (distanceY > 0) {
+                        onSweepUp();
+                    } else {
+                        onSweepDown();
+                    }
+                }
+                return super.onScroll(e1, e2, distanceX, distanceY);
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+                super.onShowPress(e);
+            }
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return super.onDown(e);
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                onDoubleClick();
+                return super.onDoubleTap(e);
+            }
+
+            @Override
+            public boolean onDoubleTapEvent(MotionEvent e) {
+                return super.onDoubleTapEvent(e);
+            }
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                return super.onSingleTapConfirmed(e);
+            }
+
+            @Override
+            public boolean onContextClick(MotionEvent e) {
+                return super.onContextClick(e);
+            }
         };
-        final GestureDetector gd = new GestureDetector(this.getContext(),(GestureDetector.OnGestureListener) touchCtrl);
+        final GestureDetector gd = new GestureDetector(this.getContext(), (GestureDetector.OnGestureListener) touchCtrl);
         setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -176,7 +247,7 @@ public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeDa
             if (status == Status.ING) {
                 handler.sendMessageDelayed(Message.obtain(), refreshDelayTime);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -219,7 +290,7 @@ public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeDa
 
     private void drawBackground(Canvas canvas) {
         paint.setColor(backgroundColor);
-        canvas.drawRect(0,0,canvas.getWidth(),canvas.getHeight(),paint);
+        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
     }
 
     private void drawSnack(Canvas canvas) {

@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
@@ -15,7 +14,7 @@ import android.widget.Toast;
 
 import com.zps.game.tao.taogamelib.games.snake.AbstractTouchCtrl;
 import com.zps.game.tao.taogamelib.games.snake.ISnakeData;
-import com.zps.game.tao.taogamelib.games.snake.bean.CenterPoint;
+import com.zps.game.tao.taogamelib.ui.CenterPoint;
 import com.zps.game.tao.taogamelib.games.snake.bean.SnakeBody;
 import com.zps.game.tao.taogamelib.i.IGameView;
 import com.zps.game.tao.taogamelib.games.snake.ISnakeLogic;

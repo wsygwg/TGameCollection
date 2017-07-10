@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.zps.game.tao.fragmentation.base.MySupportFragment;
-import com.zps.game.tao.taogamelib.games.russiacube.RussiaCubeView;
+import com.zps.game.tao.taogamelib.games.russiacube.ui.RussiaCubeView;
 import com.zps.game.tao.tgamecollection.R;
 
 /**
