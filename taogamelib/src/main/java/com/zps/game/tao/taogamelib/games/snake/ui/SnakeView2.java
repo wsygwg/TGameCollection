@@ -9,6 +9,8 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -116,7 +118,13 @@ public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeDa
                 }
             }
         };
-        this.setOnTouchListener(touchCtrl);
+        final GestureDetector gd = new GestureDetector(this.getContext(),(GestureDetector.OnGestureListener) touchCtrl);
+        setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gd.onTouchEvent(event);
+            }
+        });
     }
 
     @Override
