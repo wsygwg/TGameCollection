@@ -6,9 +6,14 @@ import com.zps.game.tao.taogamelib.ui.GameElement;
  * Created by tao on 2017/7/10.
  */
 
-public class CubeWithDrawFlag {
+public class GameElementWithDrawFlag {
     private GameElement gameElement;
     private boolean drawable;
+
+    public GameElementWithDrawFlag(GameElement gameElement, boolean drawable) {
+        this.gameElement = gameElement;
+        this.drawable = drawable;
+    }
 
     public GameElement getGameElement() {
         return gameElement;
@@ -18,7 +23,7 @@ public class CubeWithDrawFlag {
         this.gameElement = gameElement;
     }
 
-    public boolean isDrawable() {
+    public boolean getDrawable() {
         return drawable;
     }
 

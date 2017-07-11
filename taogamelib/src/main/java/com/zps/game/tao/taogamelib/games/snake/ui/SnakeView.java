@@ -33,7 +33,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
 
     private ScreenInfo screenInfo;
     private ArrayList<SnakeBody> bodyPoints = new ArrayList<>();
-    private SnakeBody initBody = new SnakeBody(new CenterPoint(r, r, r));
+    private SnakeBody initBody = new SnakeBody(new CenterPoint(r, r, r, r));
     private ISnakeData.StartDirection currentDirection = startDirection;
     private ISnakeData.Status status = Status.Unsetup;
     private ApplePoint ap;
@@ -45,7 +45,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
         @Override
         public void onSweepLeft() {
 //            showToast("左");
-            if(currentDirection != StartDirection.Right){
+            if (currentDirection != StartDirection.Right) {
                 currentDirection = StartDirection.Left;
             }
         }
@@ -53,7 +53,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
         @Override
         public void onSweepRight() {
 //            showToast("右");
-            if(currentDirection != StartDirection.Left){
+            if (currentDirection != StartDirection.Left) {
                 currentDirection = StartDirection.Right;
             }
         }
@@ -61,7 +61,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
         @Override
         public void onSweepUp() {
 //            showToast("上");
-            if(currentDirection != StartDirection.Down){
+            if (currentDirection != StartDirection.Down) {
                 currentDirection = StartDirection.Up;
             }
         }
@@ -69,7 +69,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
         @Override
         public void onSweepDown() {
 //            showToast("下");
-            if(currentDirection != StartDirection.Up){
+            if (currentDirection != StartDirection.Up) {
                 currentDirection = StartDirection.Down;
             }
         }
@@ -117,7 +117,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
         setupOnTouch();
     }
 
-    private void setupOnTouch(){
+    private void setupOnTouch() {
         this.setOnTouchListener(touchCtrl);
     }
 
@@ -170,7 +170,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
             if (status == Status.ING) {
                 handler.sendMessageDelayed(Message.obtain(), refreshDelayTime);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -213,7 +213,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
 
     private void drawBackground(Canvas canvas) {
         paint.setColor(backgroundColor);
-        canvas.drawRect(0,0,canvas.getWidth(),canvas.getHeight(),paint);
+        canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), paint);
     }
 
     private void drawSnack(Canvas canvas) {
@@ -226,7 +226,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
         CenterPoint cp = ap.getCenterPoint();
         //修改画笔颜色
         paint.setColor(appleColor);
-        canvas.drawCircle(cp.getX(), cp.getY(), cp.getR(), paint);
+        canvas.drawCircle(cp.getX(), cp.getY(), cp.getXr(), paint);
     }
 
     private void drawRect(SnakeBody snakeBody, Canvas canvas) {
@@ -310,7 +310,7 @@ public class SnakeView extends View implements IGameView, ISnakeLogic, ISnakeDat
         boolean available = false;
         while (!available) {
             boolean ok = true;
-            ApplePoint applePoint = new ApplePoint(new CenterPoint(x * 2 * r - r, y * 2 * r - r, r));
+            ApplePoint applePoint = new ApplePoint(new CenterPoint(x * 2 * r - r, y * 2 * r - r, r, r));
             for (SnakeBody sb : bodyPoints) {
                 if (applePoint.equals(sb)) {
                     ok = false;

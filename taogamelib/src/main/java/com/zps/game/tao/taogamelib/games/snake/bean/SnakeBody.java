@@ -17,13 +17,13 @@ public class SnakeBody {
     public SnakeBody getNextByDirection(ISnakeData.StartDirection direction) {
         CenterPoint cp = centerPoint;
         if (direction == ISnakeData.StartDirection.Left) {
-            cp = new CenterPoint(centerPoint.getX() - centerPoint.getR() * 2, centerPoint.getY(), centerPoint.getR());
+            cp = new CenterPoint(centerPoint.getX() - centerPoint.getXr() * 2, centerPoint.getY(), centerPoint.getXr(), centerPoint.getYr());
         } else if (direction == ISnakeData.StartDirection.Up) {
-            cp = new CenterPoint(centerPoint.getX(), centerPoint.getY() - centerPoint.getR() * 2, centerPoint.getR());
+            cp = new CenterPoint(centerPoint.getX(), centerPoint.getY() - centerPoint.getYr() * 2, centerPoint.getXr(), centerPoint.getYr());
         } else if (direction == ISnakeData.StartDirection.Right) {
-            cp = new CenterPoint(centerPoint.getX() + centerPoint.getR() * 2, centerPoint.getY(), centerPoint.getR());
+            cp = new CenterPoint(centerPoint.getX() + centerPoint.getXr() * 2, centerPoint.getY(), centerPoint.getXr(), centerPoint.getYr());
         } else if (direction == ISnakeData.StartDirection.Down) {
-            cp = new CenterPoint(centerPoint.getX(), centerPoint.getY() + centerPoint.getR() * 2, centerPoint.getR());
+            cp = new CenterPoint(centerPoint.getX(), centerPoint.getY() + centerPoint.getYr() * 2, centerPoint.getXr(), centerPoint.getYr());
         }
         return new SnakeBody(cp);
     }

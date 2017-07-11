@@ -7,24 +7,12 @@ package com.zps.game.tao.taogamelib.ui;
 public class CenterPoint {
     private int x;
     private int y;
-    private int r;
     private int xr;
     private int yr;
     private int leftCoordinate;
     private int rightCoordinate;
     private int topCoordinate;
     private int bottomCoordinate;
-
-
-    public CenterPoint(int x, int y, int r) {
-        this.x = x;
-        this.y = y;
-        this.r = r;
-        leftCoordinate = x - r;
-        rightCoordinate = x + r;
-        topCoordinate = y - r;
-        bottomCoordinate = y + r;
-    }
 
     public CenterPoint(int x, int y, int xr, int yr) {
         this.x = x;
@@ -67,14 +55,6 @@ public class CenterPoint {
 
     public void setYr(int yr) {
         this.yr = yr;
-    }
-
-    public int getR() {
-        return r;
-    }
-
-    public void setR(int r) {
-        this.r = r;
     }
 
     public int getLeftCoordinate() {

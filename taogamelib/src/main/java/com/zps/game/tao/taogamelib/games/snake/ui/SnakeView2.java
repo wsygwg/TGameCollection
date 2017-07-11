@@ -37,7 +37,7 @@ public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeDa
     private static final String TAG = SnakeView2.class.getSimpleName();
     private ScreenInfo screenInfo;
     private ArrayList<SnakeBody> bodyPoints = new ArrayList<>();
-    private SnakeBody initBody = new SnakeBody(new CenterPoint(r, r, r));
+    private SnakeBody initBody = new SnakeBody(new CenterPoint(r, r, r, r));
     private StartDirection currentDirection = startDirection;
     private Status status = Status.Unsetup;
     private ApplePoint ap;
@@ -303,7 +303,7 @@ public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeDa
         CenterPoint cp = ap.getCenterPoint();
         //修改画笔颜色
         paint.setColor(appleColor);
-        canvas.drawCircle(cp.getX(), cp.getY(), cp.getR(), paint);
+        canvas.drawCircle(cp.getX(), cp.getY(), cp.getXr(), paint);
     }
 
     private void drawRect(SnakeBody snakeBody, Canvas canvas) {
@@ -387,7 +387,7 @@ public class SnakeView2 extends View implements IGameView, ISnakeLogic, ISnakeDa
         boolean available = false;
         while (!available) {
             boolean ok = true;
-            ApplePoint applePoint = new ApplePoint(new CenterPoint(x * 2 * r - r, y * 2 * r - r, r));
+            ApplePoint applePoint = new ApplePoint(new CenterPoint(x * 2 * r - r, y * 2 * r - r, r, r));
             for (SnakeBody sb : bodyPoints) {
                 if (applePoint.equals(sb)) {
                     ok = false;
