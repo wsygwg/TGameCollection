@@ -133,6 +133,7 @@ public class CubeElement implements IDraw, IActionCtrl {
         }else{
             //如果不能往下走，证明已经到底，添加新的LoadedCubes,删除可删的行，并刷新页面
             LoadedCubes.getInstance().addCube(this);
+            russiaCubeView.clearCube();
         }
     }
 

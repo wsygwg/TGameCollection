@@ -30,7 +30,7 @@ public class GameElement implements IDraw, Comparable<GameElement> {
             cp = new CenterPoint(centerPoint.getX() + 2 * centerPoint.getXr(), centerPoint.getY(), centerPoint.getXr(), centerPoint.getYr());
             return new GameElement(cp, shape);
         } else if (sideElement == SideElement.BottomElement) {
-            cp = new CenterPoint(centerPoint.getX(), centerPoint.getY(), centerPoint.getXr() + 2 * centerPoint.getYr(), centerPoint.getYr());
+            cp = new CenterPoint(centerPoint.getX(), centerPoint.getY() + 2 * centerPoint.getYr(), centerPoint.getXr(), centerPoint.getYr());
             return new GameElement(cp, shape);
         } else if (sideElement == SideElement.NoMotion) {
             cp = new CenterPoint(centerPoint.getX(), centerPoint.getY(), centerPoint.getXr(), centerPoint.getYr());

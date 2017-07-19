@@ -1,5 +1,7 @@
 package com.zps.game.tao.taogamelib.games.russiacube.bean;
 
+import android.graphics.Canvas;
+
 import com.zps.game.tao.taogamelib.games.russiacube.ui.RussiaCubeView;
 import com.zps.game.tao.taogamelib.ui.GameElement;
 
@@ -104,5 +106,11 @@ public class LoadedCubes {
 
     public void setElements(ArrayList<GameElement> elements) {
         this.elements = elements;
+    }
+
+    public void drawSelf(Canvas canvas) {
+        for (GameElement gameElement : elements) {
+            gameElement.drawSelf(canvas);
+        }
     }
 }
