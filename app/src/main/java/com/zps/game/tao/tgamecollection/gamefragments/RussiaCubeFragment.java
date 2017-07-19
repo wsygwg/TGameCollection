@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.zps.game.tao.fragmentation.base.MySupportFragment;
@@ -14,9 +15,11 @@ import com.zps.game.tao.tgamecollection.R;
  * Created by tao on 2017/7/5.
  */
 
-public class RussiaCubeFragment extends MySupportFragment{
+public class RussiaCubeFragment extends MySupportFragment {
 
-    RussiaCubeView russiaCubeView;
+    private RussiaCubeView russiaCubeView;
+    private Button startBtn, pauseBtn, rotateBtn, leftBtn, rightBtn;
+
     public RussiaCubeFragment() {
         // Required empty public constructor
     }
@@ -26,6 +29,17 @@ public class RussiaCubeFragment extends MySupportFragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_russia_cube, container, false);
+        initViews(view);
+        return view;
+    }
+
+    private void initViews(View view) {
+        startBtn = (Button) view.findViewById(R.id.start);
+        pauseBtn = (Button) view.findViewById(R.id.pause);
+        leftBtn = (Button) view.findViewById(R.id.left);
+        rightBtn = (Button) view.findViewById(R.id.right);
+        rotateBtn = (Button) view.findViewById(R.id.rotate);
+
         russiaCubeView = (RussiaCubeView) view.findViewById(R.id.russiacubeid);
         russiaCubeView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,10 +54,44 @@ public class RussiaCubeFragment extends MySupportFragment{
                 return true;
             }
         });
-        return view;
+
+        startBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                russiaCubeView.gameStart();
+            }
+        });
+
+        pauseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                russiaCubeView.gamePause();
+            }
+        });
+
+        leftBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                russiaCubeView.left();
+            }
+        });
+
+        rightBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                russiaCubeView.right();
+            }
+        });
+
+        rotateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                russiaCubeView.rotate();
+            }
+        });
     }
 
-    private void showToast(String s){
-        Toast.makeText(RussiaCubeFragment.this.getContext(),s,Toast.LENGTH_SHORT).show();;
+    private void showToast(String s) {
+        Toast.makeText(RussiaCubeFragment.this.getContext(), s, Toast.LENGTH_SHORT).show();
     }
 }
