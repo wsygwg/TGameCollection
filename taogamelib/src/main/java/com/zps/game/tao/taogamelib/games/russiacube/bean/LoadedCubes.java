@@ -3,6 +3,7 @@ package com.zps.game.tao.taogamelib.games.russiacube.bean;
 import android.graphics.Canvas;
 
 import com.zps.game.tao.taogamelib.games.russiacube.ui.RussiaCubeView;
+import com.zps.game.tao.taogamelib.ui.CenterPoint;
 import com.zps.game.tao.taogamelib.ui.GameElement;
 
 import java.util.ArrayList;
@@ -95,6 +96,19 @@ public class LoadedCubes {
                 GameElement gameElement = iterator.next();
                 if (gameElement.getCenterPoint().getY() == deleteableY.get(i)) {
                     iterator.remove();
+                }
+            }
+        }
+
+        //将剩下的方块Y轴下移
+        for (int i = 0; i < deleteableY.size(); i++) {
+            Iterator<GameElement> iterator = elements.iterator();
+            while (iterator.hasNext()) {
+                GameElement gameElement = iterator.next();
+                if (gameElement.getCenterPoint().getY() < deleteableY.get(i)) {
+                    CenterPoint cp = gameElement.getCenterPoint();
+                    CenterPoint newCp = new CenterPoint(cp.getX(),cp.getY() + cp.getYr() * 2,cp.getXr(),cp.getYr());
+                    gameElement.setCenterPoint(newCp);
                 }
             }
         }

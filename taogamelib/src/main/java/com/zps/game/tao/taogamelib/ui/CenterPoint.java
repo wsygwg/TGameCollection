@@ -1,5 +1,7 @@
 package com.zps.game.tao.taogamelib.ui;
 
+import java.util.HashMap;
+
 /**
  * Created by tao on 2017/7/3.
  */
@@ -89,12 +91,18 @@ public class CenterPoint {
         this.bottomCoordinate = bottomCoordinate;
     }
 
-    public boolean equlse(CenterPoint centerPoint) {
-        if (this.leftCoordinate == centerPoint.getLeftCoordinate()
-                && this.topCoordinate == centerPoint.getTopCoordinate()
-                && this.rightCoordinate == centerPoint.getRightCoordinate()
-                && this.bottomCoordinate == centerPoint.getBottomCoordinate()) {
-            return true;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof CenterPoint) {
+            CenterPoint centerPoint = (CenterPoint) obj;
+            if (this.leftCoordinate == centerPoint.getLeftCoordinate()
+                    && this.topCoordinate == centerPoint.getTopCoordinate()
+                    && this.rightCoordinate == centerPoint.getRightCoordinate()
+                    && this.bottomCoordinate == centerPoint.getBottomCoordinate()) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }

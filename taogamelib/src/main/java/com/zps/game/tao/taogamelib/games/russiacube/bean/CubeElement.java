@@ -49,7 +49,7 @@ public class CubeElement implements IDraw, IActionCtrl {
         for (int i = 0; i < matrix.length; i++) {
             ArrayList<GameElementWithDrawFlag> oneLine = new ArrayList<>();
             for (int j = 0; j < matrix[i].length; j++) {
-                CenterPoint centerPoint = new CenterPoint(leftTop.getCenterPoint().getX() + xr * j, leftTop.getCenterPoint().getY() + yr * i, xr, yr);
+                CenterPoint centerPoint = new CenterPoint(leftTop.getCenterPoint().getX() + j * 2 * xr, leftTop.getCenterPoint().getY() + i * 2 * yr, xr, yr);
                 GameElementWithDrawFlag gameElementWithDrawFlag = new GameElementWithDrawFlag(new GameElement(centerPoint, shape), (matrix[i][j] == 1) ? true : false);
                 oneLine.add(gameElementWithDrawFlag);
             }
@@ -121,6 +121,13 @@ public class CubeElement implements IDraw, IActionCtrl {
     }
 
     /**
+     * TODO:一个图形的终结判断
+     * TODO:一个图形的终结判断
+     * TODO:一个图形的终结判断
+     * TODO:一个图形的终结判断
+     * TODO:一个图形的终结判断
+     * TODO:一个图形的终结判断
+     *
      * 1.不允许触碰到底部已经累计的方块
      * 2.依据方形的格式旋转，则方块在边缘的时候有可能有一部分突出到屏幕之外。需要有相应的平移操作
      */
@@ -130,7 +137,7 @@ public class CubeElement implements IDraw, IActionCtrl {
         if (!mockCube.isCubeCollision() && mockCube.isWallKicks() == 0) {
             //没有任何碰撞，更新当前cube数据
             setupCurrentCube(mockCube, cubeDirection);
-        }else{
+        } else {
             //如果不能往下走，证明已经到底，添加新的LoadedCubes,删除可删的行，并刷新页面
             LoadedCubes.getInstance().addCube(this);
             russiaCubeView.clearCube();
@@ -216,6 +223,7 @@ public class CubeElement implements IDraw, IActionCtrl {
     public static final int LEFT_COLLISION = -1;
     public static final int NO_COLLISION = 0;
     public static final int RIGHT_COLLISION = 1;
+    public static final int BOTTOM_COLLISION = 2;
 
     /**
      * 旋转撞墙后，向里侧移动，保证方块在屏幕之内
@@ -232,6 +240,8 @@ public class CubeElement implements IDraw, IActionCtrl {
                         return LEFT_COLLISION;
                     } else if (gameElement.getCenterPoint().getX() > russiaCubeView.getScreenInfo().getWidth()) {
                         return RIGHT_COLLISION;
+                    } else if (gameElement.getCenterPoint().getY() > russiaCubeView.getScreenInfo().getHeight()) {
+                        return BOTTOM_COLLISION;
                     }
                 }
             }
@@ -279,10 +289,10 @@ public class CubeElement implements IDraw, IActionCtrl {
                 int[][] array = {{0, 1, 0}, {1, 1, 1}, {0, 0, 0}};
                 return array;
             } else if (cubeDirection == CubeDirection.RIGHT) {
-                int[][] array = {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+                int[][] array = {{0, 1, 0}, {0, 1, 1}, {0, 1, 0}};
                 return array;
             } else if (cubeDirection == CubeDirection.BOTTOM) {
-                int[][] array = {{0, 1, 0}, {0, 1, 1}, {0, 1, 0}};
+                int[][] array = {{0, 0, 0}, {1, 1, 1}, {0, 1, 0}};
                 return array;
             }
         } else if (cubeType == CubeType.Seven) {

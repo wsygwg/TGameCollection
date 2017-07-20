@@ -14,11 +14,22 @@ import com.zps.game.tao.taogamelib.games.russiacube.bean.LoadedCubes;
 import com.zps.game.tao.taogamelib.ui.CenterPoint;
 import com.zps.game.tao.taogamelib.ui.GameElement;
 import com.zps.game.tao.taogamelib.utils.GameRandom;
+import com.zps.game.tao.taogamelib.utils.GreatestCommonDivisor;
 import com.zps.game.tao.taogamelib.utils.ScreenInfo;
 
 /**
  * Created by tao on 2017/7/5.
  * 俄罗斯方块的playgroud,屏幕内部
+ *
+ * TODO:BUGs
+ * TODO:BUGs
+ * TODO:BUGs
+ * TODO:BUGs
+ * TODO:BUGs
+ * TODO:BUGs
+ * TODO:BUGs
+ * 2.消除某一行之后，需要将这一行上面的其他行整体下移一行才可以
+ * 3.暂停与开始的正确控制
  */
 
 public class RussiaCubeView extends View implements IRussiaCubeLogic {
@@ -26,7 +37,7 @@ public class RussiaCubeView extends View implements IRussiaCubeLogic {
     private CubeElement currentCube;
     private ScreenInfo screenInfo;
     private static int MaxElementNumPerLine;
-    private static final int ELEMENT_R = 20;
+    private static int ELEMENT_R = 20;
     private static final GameElement.Shape gameElementShape = GameElement.Shape.Rectangle;
     private Thread logicThread;
 
@@ -83,29 +94,43 @@ public class RussiaCubeView extends View implements IRussiaCubeLogic {
         currentCube = new CubeElement(this, CubeElement.CubeType.values()[randomType], CubeElement.CubeDirection.values()[randomDirection], gameElement);
         if (currentCube.isCubeCollision()) {
             showToast("游戏结束");
+            gamePause();
+            gameRestart();
         }
         return currentCube;
     }
 
-    private void showToast(String str) {
-        Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+    private void showToast(final String str) {
+        ((Activity)getContext()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Toast.makeText(getContext(), str, Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         try {
-            if(currentCube != null){
+            if (currentCube != null) {
                 currentCube.drawSelf(canvas);
             }
             LoadedCubes.getInstance().drawSelf(canvas);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         if (screenInfo == null) {
             screenInfo = new ScreenInfo((Activity) getContext(), canvas.getWidth(), canvas.getHeight());
             //分辨率 320*240的倍数 960*540,1280*720,1280*800,1920*1080
-            MaxElementNumPerLine = screenInfo.getWidth() / (ELEMENT_R * 2);
+            int gcdivisor = GreatestCommonDivisor.greatestCommonDivisorGetter(screenInfo.getWidth(), screenInfo.getHeight());
+            MaxElementNumPerLine = screenInfo.getWidth() / gcdivisor;
+            showToast("gcdivisor = " + gcdivisor + " ; MaxElementNumPerLine = " + MaxElementNumPerLine);
+            ELEMENT_R = gcdivisor / 2;
         }
     }
 
@@ -113,6 +138,16 @@ public class RussiaCubeView extends View implements IRussiaCubeLogic {
     public void left() {
         try {
             currentCube.left();
+            ((Activity) getContext()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        RussiaCubeView.this.invalidate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,6 +157,16 @@ public class RussiaCubeView extends View implements IRussiaCubeLogic {
     public void right() {
         try {
             currentCube.right();
+            ((Activity) getContext()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        RussiaCubeView.this.invalidate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,6 +176,16 @@ public class RussiaCubeView extends View implements IRussiaCubeLogic {
     public void down() {
         try {
             currentCube.down();
+            ((Activity) getContext()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        RussiaCubeView.this.invalidate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,6 +199,16 @@ public class RussiaCubeView extends View implements IRussiaCubeLogic {
     public void rotate() {
         try {
             currentCube.rotate();
+            ((Activity) getContext()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        RussiaCubeView.this.invalidate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -165,18 +230,8 @@ public class RussiaCubeView extends View implements IRussiaCubeLogic {
                                 if (currentCube == null) {
                                     currentCube = createCube();
                                 }
-                                ((Activity)getContext()).runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            RussiaCubeView.this.invalidate();
-                                        }catch (Exception e){
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                });
-                                sleep(1000);
                                 down();
+                                sleep(1000);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -194,6 +249,17 @@ public class RussiaCubeView extends View implements IRussiaCubeLogic {
     public void gamePause() {
         try {
             startFlag = false;
+            logicThread = null;
+            ((Activity) getContext()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        RussiaCubeView.this.invalidate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -211,7 +277,17 @@ public class RussiaCubeView extends View implements IRussiaCubeLogic {
     @Override
     public void gameRestart() {
         try {
-
+            LoadedCubes.getInstance().clearAllElements();
+            ((Activity) getContext()).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        RussiaCubeView.this.invalidate();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

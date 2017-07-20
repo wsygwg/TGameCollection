@@ -18,7 +18,7 @@ import com.zps.game.tao.tgamecollection.R;
 public class RussiaCubeFragment extends MySupportFragment {
 
     private RussiaCubeView russiaCubeView;
-    private Button startBtn, pauseBtn, rotateBtn, leftBtn, rightBtn;
+    private Button startBtn, pauseBtn, rotateBtn, leftBtn, rightBtn,downBtn;
 
     public RussiaCubeFragment() {
         // Required empty public constructor
@@ -38,6 +38,7 @@ public class RussiaCubeFragment extends MySupportFragment {
         pauseBtn = (Button) view.findViewById(R.id.pause);
         leftBtn = (Button) view.findViewById(R.id.left);
         rightBtn = (Button) view.findViewById(R.id.right);
+        downBtn = (Button) view.findViewById(R.id.down);
         rotateBtn = (Button) view.findViewById(R.id.rotate);
 
         russiaCubeView = (RussiaCubeView) view.findViewById(R.id.russiacubeid);
@@ -80,6 +81,13 @@ public class RussiaCubeFragment extends MySupportFragment {
             @Override
             public void onClick(View v) {
                 russiaCubeView.right();
+            }
+        });
+
+        downBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                russiaCubeView.down();
             }
         });
 
