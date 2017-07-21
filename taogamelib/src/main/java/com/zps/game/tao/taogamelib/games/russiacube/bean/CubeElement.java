@@ -2,9 +2,8 @@ package com.zps.game.tao.taogamelib.games.russiacube.bean;
 
 import android.graphics.Canvas;
 
-import com.google.gson.Gson;
 import com.zps.game.tao.taogamelib.games.russiacube.ui.RussiaCubeView;
-import com.zps.game.tao.taogamelib.i.IActionCtrl;
+import com.zps.game.tao.taogamelib.i.IDirectionCtrl;
 import com.zps.game.tao.taogamelib.i.IDraw;
 import com.zps.game.tao.taogamelib.ui.CenterPoint;
 import com.zps.game.tao.taogamelib.ui.GameElement;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
  * 俄罗斯方块图形的一块儿
  */
 
-public class CubeElement implements IDraw, IActionCtrl {
+public class CubeElement implements IDraw, IDirectionCtrl {
 
     public enum CubeType {
         LongStick, Three, Seven, SevenReverse, S, SReverse, Tian
